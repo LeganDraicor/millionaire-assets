@@ -1,0 +1,35 @@
+{
+  "name": "Draicor Bros",
+  "short_name": "Draicor",
+  "id": "/",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d0d0d",
+  "theme_color": "#f8b800",
+  "description": "Explora el universo de Draicor Bros, el juego definitivo de estrategia y recompensas.",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiv7Im2uQ5W_ZAzfiC6q6vKpcmbvdir5o6OeXqkQh54C14IV4eNM97hA7vj9Qwk52LVEMGK0dPxhY24dMhQqPBTknZedIYAhjvgXWeCsHvuYknMvbOdxkGhdO9xJQl4Ba6dX0GJoMsxha3RUHppgdW1wRwx2iOYrCsOeQIx8Dyp8R4sc_2navm0WbBi/s1600/Logo_Draicor_Bros.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0iESIDou1a96MaMjHqkmpIcb0SabJsP4NstQYr0e1itvih0C5RrojynuC1nTKY-RWA3wC2cC7AlUWqWIg1VLPBPbGtQxpG-wV2f88pZ6zhSKAqYK1bnmHOvd92JvXv6auH9IJPYiDpy_cv14gazlnAmxI5azsPd9YBDieZUWZ04p1Rx5JHRSXF2KL/s1600/DraicorBros_game.jpg",
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Interfaz de Escritorio Draicor Bros"
+    },
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEimr3NSk6rQ_Br7VE9viiI9nCCdSFN_xvYTYPI2R8oYyfYYPO2-tBaMMeLtm3UeIXJA4WcYARnrWdoXDMOKBLJN9-OVYZzaj0CiNY8wTqZm81EGgNgOtQGwU5fL1IWZM4O0enZh6rNClShSVOfgrQF4CGXGpyIlZljJBFdU3nN2iL2bw2RJgwJSLJTz/s1600/DraicorBros_game_movil.jpg",
+      "sizes": "720x1280",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Interfaz Móvil Draicor Bros"
+    }
+  ]
+}
