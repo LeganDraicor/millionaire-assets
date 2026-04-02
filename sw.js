@@ -26,6 +26,7 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
+  if (!event.request.url.startsWith('http')) return;
   // Ignorar peticiones que no sean GET (como tus envíos a la base de datos)
   if (event.request.method !== 'GET') return;
 
