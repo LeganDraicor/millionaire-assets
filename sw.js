@@ -1,48 +1,34 @@
-const CACHE_NAME = 'draicor-bros-v2'; // Subimos la versión a v2
-const ASSETS_TO_CACHE = [
-  '/'
-];
+// Draicor Bros service worker (v3): network first, falls back to the saved copy when offline.
+// v3 only changes the cache name so every installed app drops the old saved pages after the new design.
+const CACHE_NAME = 'draicor-bros-v3';
 
-self.addEventListener('install', event => {
+self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(ASSETS_TO_CACHE))
-      .then(() => self.skipWaiting())
+    caches.open(CACHE_NAME).then((cache) => cache.add('/')).catch(() => {}).then(() => self.skipWaiting())
   );
 });
 
-self.addEventListener('activate', event => {
+self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cache => {
-          if (cache !== CACHE_NAME) {
-            return caches.delete(cache);
-          }
-        })
-      );
-    }).then(() => self.clients.claim())
+    caches.keys()
+      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k))))
+      .then(() => self.clients.claim())
   );
 });
 
-self.addEventListener('fetch', event => {
-  if (!event.request.url.startsWith('http')) return;
-  // Ignorar peticiones que no sean GET (como tus envíos a la base de datos)
-  if (event.request.method !== 'GET') return;
-
+self.addEventListener('fetch', (event) => {
+  const req = event.request;
+  if (req.method !== 'GET') return;                       // POST (login, backend) always goes straight to the network
+  const sameOrigin = new URL(req.url).origin === self.location.origin;
   event.respondWith(
-    fetch(event.request)
-      .then(response => {
-        // Si hay internet, clona la respuesta y guárdala en caché actualizada
-        const responseClone = response.clone();
-        caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, responseClone);
-        });
-        return response;
+    fetch(req)
+      .then((res) => {
+        if (sameOrigin && res && res.ok) {
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, copy)).catch(() => {});
+        }
+        return res;
       })
-      .catch(() => {
-        // Si el internet falla o es el móvil pidiendo ?m=1, usa el caché e ignora el parámetro
-        return caches.match(event.request, { ignoreSearch: true });
-      })
+      .catch(() => caches.match(req, { ignoreSearch: true }))
   );
 });
